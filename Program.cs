@@ -4,6 +4,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        //Hide cursor
+        Console.CursorVisible = false;
+
         //Creating a map
         char[,] map = {
             {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',},
@@ -28,18 +31,59 @@ internal class Program
             {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}
         };
 
-        //Set cursor position
-        Console.SetCursorPosition(0,0);
+        //Player's coordinates
+        int userX = 4, userY = 1;
 
         //Show a map in console
-        for (int i = 0; i < map.GetLength(0); i++)
+        while(true) 
         {
-            for (int j = 0; j < map.GetLength(1); j++){
-                Console.Write(map[i, j]);
-            }
-             Console.WriteLine();
-        } 
+            //Set cursor position
+            Console.SetCursorPosition(0,0);
 
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    Console.Write(map[i, j]);
+                }
+                Console.WriteLine();
+             }
+            
+            //Player's start position
+            Console.SetCursorPosition(userY,userX);
+            Console.Write('@');
+            
+            //Controll settings
+            ConsoleKeyInfo charKey = Console.ReadKey();
+            switch(charKey.Key)
+            {
+                case ConsoleKey.UpArrow:
+                   if(map[userX - 1, userY] != '#') {
+                        userX--;
+                   }
+                    break;
+                case ConsoleKey.DownArrow:
+                    if(map[userX + 1, userY] != '#') {
+                        userX++;
+                    }
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if(map[userX, userY - 1] != '#') {
+                        userY--;
+                     }
+                    break;
+                case ConsoleKey.RightArrow:
+                    if(map[userX, userY + 1] != '#') {
+                        userY++;
+                    }
+                    break;
+
+                
+            }
+            // Update Console
+            Console.Clear();
+
+        }
 
     }
 }
